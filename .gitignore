@@ -33,4 +33,4 @@ build/
 ###  Others ###
 mvnw
 mvnw.cmd
-.mvn/
+.mvn
