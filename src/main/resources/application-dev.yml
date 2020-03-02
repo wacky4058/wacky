@@ -10,8 +10,27 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
-  mapper-locations: classpath:mapping/*Mapper.xml
+  mapper-locations: classpath:mappers/*Mapper.xml
   type-aliases-package: com.shao.wacky.entity
+
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:mappers/*Mapper.xml
+  typeAliasesPackage: com.shao.wacky.entity
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
 
 #showSql
 logging:

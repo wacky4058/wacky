@@ -1,11 +1,31 @@
 package com.shao.wacky.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import java.io.Serializable;
 
-public class User {
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author wacky
+ * @since 2020-03-02
+ */
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+    @TableField("userName")
     private String userName;
+    @TableField("passWord")
     private String passWord;
+    @TableField("realName")
     private String realName;
+
 
     public Integer getId() {
         return id;
@@ -41,11 +61,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "UserServiceImpl{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", passWord='" + passWord + '\'' +
-                ", realName='" + realName + '\'' +
-                '}';
+        return "User{" +
+        ", id=" + id +
+        ", userName=" + userName +
+        ", passWord=" + passWord +
+        ", realName=" + realName +
+        "}";
     }
 }

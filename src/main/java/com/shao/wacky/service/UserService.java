@@ -1,9 +1,15 @@
 package com.shao.wacky.service;
-
 import com.shao.wacky.entity.User;
-import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.service.IService;
 
-@Service
-public interface UserService {
-    public User Sel(int id);
+/**
+ * <p>
+ *  服务类
+ * </p>
+ *
+ * @author wacky
+ * @since 2020-03-02
+ */
+public interface UserService extends IService<User> {
+     User Sel(int id);
 }

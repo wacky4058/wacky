@@ -9,7 +9,7 @@
         <result column="realName" jdbcType="VARCHAR" property="realName" />
     </resultMap>
 
-    <select id="Sel" resultType="com.shao.wacky.entity.User">
-        select * from user where id = #{id}
+    <select id="Sel" resultMap="BaseResultMap">
+        select userName,passWord from user where id = #{id}
     </select>
 </mapper>
