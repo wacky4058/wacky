@@ -1,0 +1,23 @@
+
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: shao
+    password: 123456
+    url: jdbc:mysql://localhost:3306/shao?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.shao.wacky.entity
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
+
+
