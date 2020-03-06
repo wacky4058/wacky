@@ -1,6 +1,8 @@
 package com.shao.wacky.interceptor;
 
 
+import com.shao.wacky.annotation.NeedLogin;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,10 @@ public class InterceptorConfig implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("---------preHandle--------");
+        if (handler instanceof HandlerMethod && ((HandlerMethod)handler).getMethodAnnotation(NeedLogin.class).value()){
+            System.out.println("---------needLogin--------");
+            return true;
+        }
         return true;
     }
 
