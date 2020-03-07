@@ -1,16 +1,23 @@
 package com.shao.wacky.interceptor;
 
+import com.shao.wacky.domain.ServiceLogDomain;
 import com.shao.wacky.entity.User;
+import com.shao.wacky.utils.DateUtils;
+import com.shao.wacky.utils.ParamUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 public class AopAspect {
+
+    private static Logger logger = LoggerFactory.getLogger(AopAspect.class);
 
     @Pointcut("execution(public * com.shao.wacky.service..*.*(..))")
     public void serviceAspect() {
@@ -18,17 +25,21 @@ public class AopAspect {
     }
     @Around("serviceAspect()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.println("--------进入切面--------");
-        String className = pjp.getTarget().getClass().getName();  //类名
-        System.out.println("--------className:"+className+"-----");
+        ServiceLogDomain log = new ServiceLogDomain();
+        log.setStatrTime(DateUtils.currentTime(DateUtils.TIME_FORMAT_HH_MM_SS));
+        String className = pjp.getTarget().getClass().getName();
+        log.setRequestClass(className);
         String methodName = pjp.getSignature().getName();   //方法名
-        System.out.println("--------methodName:"+methodName+"-----");
+        log.setRequestMethod(methodName);
         String[] parameterNamesArgs = ((MethodSignature) pjp.getSignature()).getParameterNames();  //参数名
-        System.out.println("--------parameterNamesArgs:"+parameterNamesArgs+"-----");
         Object[] args = pjp.getArgs(); // 获取方法参数
-        System.out.println("--------args:"+args+"-----");
-        System.out.println("--------pjp.proceed():"+pjp.proceed().getClass().getName()+"-----");
-        System.out.println(User.class.equals(pjp.proceed().getClass())); //返回类型
-        return  pjp.proceed();
+        log.setRequestArgs(ParamUtils.getParams(parameterNamesArgs,args));
+        Object result = pjp.proceed();
+        log.setResult(result);
+        log.setEndTime(DateUtils.currentTime(DateUtils.TIME_FORMAT_HH_MM_SS));
+        //System.out.println("--------pjp.proceed():"+pjp.proceed().getClass().getName()+"-----");
+        //System.out.println(User.class.equals(pjp.proceed().getClass())); //返回类型
+        logger.info(log.toString());
+        return  result;
     }
 }

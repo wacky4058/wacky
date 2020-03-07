@@ -32,11 +32,15 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 
+#log
+
 #showSql
 logging:
   level:
     com:
-      example:
-        mapper : debug
+      shao:
+        wacky:
+          mapper : debug
+  config: classpath:logback.xml
 
 
