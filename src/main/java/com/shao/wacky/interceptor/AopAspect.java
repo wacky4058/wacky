@@ -2,6 +2,7 @@ package com.shao.wacky.interceptor;
 
 import com.shao.wacky.domain.ServiceLogDomain;
 import com.shao.wacky.entity.User;
+import com.shao.wacky.exception.WackyException;
 import com.shao.wacky.utils.DateUtils;
 import com.shao.wacky.utils.ParamUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -40,6 +41,7 @@ public class AopAspect {
         //System.out.println("--------pjp.proceed():"+pjp.proceed().getClass().getName()+"-----");
         //System.out.println(User.class.equals(pjp.proceed().getClass())); //返回类型
         logger.info(log.toString());
+        //throw new WackyException(500,"SSSS");
         return  result;
     }
 }

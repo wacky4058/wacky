@@ -1,6 +1,7 @@
 package com.shao.wacky.controller;
 
 import com.shao.wacky.annotation.NeedLogin;
+import com.shao.wacky.exception.WackyException;
 import com.shao.wacky.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,14 @@ public class UserController {
     @NeedLogin(value = NeedLogin.need)
     @RequestMapping("getUser/{id}")
     public String GetUser(@PathVariable int id){
-        logger.info("日志打印");
+        if (0==id){
+            logger.debug("id未输入正确");
+            throw new WackyException(400,"请输入正确的id");
+        }
         return userService.Sel(id).toString();
     }
+
+
 
 
 }
