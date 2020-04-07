@@ -1,6 +1,7 @@
 package com.shao.wacky.controller;
 
 import com.shao.wacky.annotation.NeedLogin;
+import com.shao.wacky.entity.User;
 import com.shao.wacky.exception.WackyException;
 import com.shao.wacky.service.UserService;
 import org.slf4j.Logger;
@@ -18,13 +19,20 @@ public class UserController {
     @Autowired
     private UserService userService;
     @NeedLogin(value = NeedLogin.need)
-    @RequestMapping("getUser/{id}")
-    public String GetUser(@PathVariable int id){
-        if (0==id){
+    @RequestMapping("getUser")
+    public String GetUser(Integer id){
+
+        if (null==id){
             logger.debug("id未输入正确");
             throw new WackyException(400,"请输入正确的id");
         }
-        return userService.Sel(id).toString();
+        User u = userService.Sel(id);
+        if (null==u){
+            throw new WackyException(401,"未找到数据");
+        }else{
+            return null==u?"":u.toString();
+        }
+
     }
 
 

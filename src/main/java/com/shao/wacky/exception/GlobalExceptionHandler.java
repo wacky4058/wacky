@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Object handleException (HttpServletRequest request, WackyException e){
       Map<String,Object> map=new HashMap<>();
-      map.put("url",request.getRequestURL().toString());
+      map.put("code",e.getCode());
       map.put("msg",e.getMessage());
       return map;
   }
