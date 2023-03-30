@@ -7,17 +7,15 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.annotation.Annotation;
 
 public class InterceptorConfig implements HandlerInterceptor{
 
     //在Controller执行之前调用，如果返回false，controller不执行
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         System.out.println("---------preHandle--------");
-        if (handler instanceof HandlerMethod && ((HandlerMethod)handler).getMethodAnnotation(NeedLogin.class).value()){
-            System.out.println("---------needLogin--------");
-            return true;
-        }
         return true;
     }
 

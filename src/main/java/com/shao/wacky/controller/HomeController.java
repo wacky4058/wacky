@@ -1,5 +1,6 @@
 package com.shao.wacky.controller;
 
+import com.shao.wacky.interceptor.RequireLogin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
