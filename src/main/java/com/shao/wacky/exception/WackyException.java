@@ -15,6 +15,11 @@ public class WackyException extends RuntimeException{
         this.message = resultStatusEnum.getMessage();
     }
 
+    public WackyException(String message) {
+        this.code = 500;
+        this.message = message;
+    }
+
     public int getCode() {
         return code;
     }
