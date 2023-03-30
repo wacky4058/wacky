@@ -1,6 +1,6 @@
 package com.shao.wacky.mapper;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.shao.wacky.entity.User;
 
 /**
@@ -12,5 +12,4 @@ import com.shao.wacky.entity.User;
  * @since 2020-03-02
  */
 public interface UserMapper extends BaseMapper<User> {
-    User Sel(int id);
 }

@@ -1,7 +1,6 @@
 package com.shao.wacky.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.shao.wacky.service.UserService;
 import com.shao.wacky.utils.*;
 import com.shao.wacky.vo.LoginUserInfo;
 import lombok.extern.slf4j.Slf4j;
