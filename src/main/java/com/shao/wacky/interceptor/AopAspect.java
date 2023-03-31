@@ -38,10 +38,8 @@ public class AopAspect {
         Object result = pjp.proceed();
         log.setResult(result);
         log.setEndTime(DateUtils.currentTime(DateUtils.TIME_FORMAT_HH_MM_SS));
-        //System.out.println("--------pjp.proceed():"+pjp.proceed().getClass().getName()+"-----");
-        //System.out.println(User.class.equals(pjp.proceed().getClass())); //返回类型
         logger.info(log.toString());
-        //throw new WackyException(500,"SSSS");
+        System.out.println(log.toString());
         return  result;
     }
 }
