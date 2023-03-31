@@ -7,8 +7,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class UpPasswordBody {
 
-    private Integer userId;
-
     /**
      * 新密码
      */

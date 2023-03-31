@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
     @Resource
     private UserServiceImpl userService;
@@ -52,7 +52,7 @@ public class UserController {
     @RequestMapping("/updatePassword")
     @RequireLogin
     public ResultVo updatePassword(@Validated @RequestBody UpPasswordBody form){
-        User user = userService.getById(form.getUserId());
+        User user = userService.getById(getUserId());
         if (null==user){
             return ResultVo.fail("用户不存在");
         }
