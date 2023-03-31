@@ -1,4 +1,4 @@
-package com.shao.wacky.interceptor;
+package com.shao.wacky.annotation;
 
 import java.lang.annotation.*;
 
