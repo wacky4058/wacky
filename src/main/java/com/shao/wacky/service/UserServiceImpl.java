@@ -9,6 +9,7 @@ import com.shao.wacky.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -25,5 +26,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>{
         LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery(User.class);
         queryWrapper.eq(User::getUserName, userName);
         return getOne(queryWrapper);
+    }
+    public List<User> findAll(){
+        LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery(User.class);
+        return list(queryWrapper);
     }
 }
