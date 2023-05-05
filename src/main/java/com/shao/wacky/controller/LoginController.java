@@ -1,5 +1,6 @@
 package com.shao.wacky.controller;
 
+import com.shao.wacky.annotation.RequireLogin;
 import com.shao.wacky.entity.User;
 
 import com.shao.wacky.service.UserServiceImpl;
@@ -26,6 +27,7 @@ public class LoginController {
     UserServiceImpl userService;
 
     @PostMapping("login")
+    @RequireLogin(login = false)
     public ResultVo<Map<String, Object>> login(@Validated @RequestBody LoginBody form) {
         // 根据用户名 获取用户对象
         User user = userService.findByName(form.getUsername());
@@ -34,7 +36,7 @@ public class LoginController {
             return ResultVo.fail("用户名或密码不存在");
         }
         // 接口返回信息
-        Map<String, Object> rspMap = new HashMap<String, Object>();
+        Map<String, Object> rspMap = new HashMap<>();
         rspMap.put("access_token", JWTUtil.getToken(user));
         return ResultVo.ok(rspMap);
     }

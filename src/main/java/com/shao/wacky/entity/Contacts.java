@@ -29,13 +29,13 @@ public class Contacts implements Serializable {
     @TableField("remark")
     private String remark;
 
-    @TableField("createTime")
+    @TableField("create_time")
     private Timestamp createTime;
-    @TableField("updateTime")
+    @TableField("update_time")
     private Timestamp updateTime;
-    @TableField("createBy")
+    @TableField("create_by")
     private Long createBy;
-    @TableField("updateBy")
+    @TableField("update_by")
     private Long updateBy;
     @TableField("owner")
     private Long owner;

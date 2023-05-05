@@ -30,7 +30,7 @@ public class ResultVo<T> implements Serializable {
      * @return 公共返回类
      */
     public static <T> ResultVo<T> ok(){
-        return new ResultVo<>(200, "");
+        return new ResultVo<>(200, "操作成功");
     }
 
     /**

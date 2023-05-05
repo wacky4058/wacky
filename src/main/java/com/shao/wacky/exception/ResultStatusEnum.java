@@ -6,10 +6,14 @@ public enum ResultStatusEnum {
      */
     SUCCESS(200, "请求成功"),
 
+    TOKEN_WRONG(500,"token 失效"),
+
     /**
      * 密码错误
      */
     PASSWORD_NOT_MATCHING(400, "密码错误");
+
+
 
 
     private int code;

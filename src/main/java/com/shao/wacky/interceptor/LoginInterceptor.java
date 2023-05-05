@@ -2,6 +2,8 @@ package com.shao.wacky.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.shao.wacky.annotation.RequireLogin;
+import com.shao.wacky.exception.ResultStatusEnum;
+import com.shao.wacky.exception.WackyException;
 import com.shao.wacky.utils.*;
 import com.shao.wacky.vo.LoginUserInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
@@ -37,23 +40,19 @@ public class LoginInterceptor extends AbstractInterceptor {
 
         HttpServletRequest req = getHttpServletRequest();
         RequireLogin requireLogin = getH5RequestHandler(joinPoint);
-        if (requireLogin == null) {
-            return;
+        LoginUserInfo loginUserInfo = this.login(req);
+        // 校验登录
+        if ((null == requireLogin && null == loginUserInfo) || (null == loginUserInfo && requireLogin.login())) {
+            throw new WackyException(ResultStatusEnum.TOKEN_WRONG);
         }
         // 打印日志
-        if (requireLogin.logger()) {
+        if (null != requireLogin && requireLogin.logger()) {
             Map<String, Object> requestParams = getRequestParams(joinPoint, req);
-
             // 请求参数打印
             log.info("请求入参: IP:{} URI:{} HEADER:{} PARAMS:{}",
                     IPUtil.getIpAddr(req), getRequestUrl(req),
                     getRequestHeader(req), JSON.toJSONString(requestParams));
         }
-        // 登录: 解决不需要登录的接口获取用户登录信息的场景
-        LoginUserInfo loginUserInfo = this.login(req);
-        // 校验登录
-        Assert.isFalse(requireLogin.login() && loginUserInfo == null,"token 失效");
-
     }
 
     // 请求正常返回
@@ -110,13 +109,13 @@ public class LoginInterceptor extends AbstractInterceptor {
     private LoginUserInfo login(HttpServletRequest req) {
         String token = RequestContextUtil.getRequestToken(req);
         if (StringUtils.isBlank(token)) {
-           return null;
+            return null;
         }
         //从token中解析出username，然后从数据库取出用户信息
         Long userId = JWTUtil.verify(token).getClaims().get("userId").asLong();
         String username = JWTUtil.verify(token).getClaims().get("userName").asString();
         String realName = JWTUtil.verify(token).getClaims().get("realName").asString();
-        if (null==userId){
+        if (null == userId) {
             return null;
         }
         LoginUserInfo loginUserInfo = new LoginUserInfo();
