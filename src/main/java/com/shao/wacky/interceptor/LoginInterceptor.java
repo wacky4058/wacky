@@ -90,9 +90,6 @@ public class LoginInterceptor extends AbstractInterceptor {
                 ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
                 HttpServletRequest req = attributes.getRequest();
                 Map<String, Object> requestParams = getRequestParams(joinPoint, req);
-
-                // 这里可以捕获异常,但无法处理异常,异常还是会抛给 JVM
-                // 处理完请求,返回内容
                 log.error("请求出参= IP:{} URI:{} PARAMS:{} ERROR:{} TIME:{}",
                         IPUtil.getIpAddr(req), getRequestUrl(req), JSON.toJSONString(requestParams),
                         e.getMessage(), getRequestTaking(), e);
